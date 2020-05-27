@@ -2,11 +2,11 @@ const mysql = require('mysql');
 const myconnection = require('express-myconnection');
 
 const conexion = myconnection(mysql, {
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'db4free.net',
+    user: 'vacations',
+    password: 'vacations',
     port: 3306,
-    database: 'vacaciones'
+    database: 'vacations'
 }, 'single');
 
 
