@@ -1,0 +1,64 @@
+<%- include('../partials/_headerGantt') %>
+<%- include('../partials/validacion') %>
+<div class="container mt-2">
+  <section class="row">
+    <aside class="col-12 col-sm-12 col-md-2 col-lg-4 col-xl-4">
+      <!--Borrar a partir de aqui-->
+      <div class="card mb-2">
+        <div class="card-header">
+          <h5 class="card-title text-center">Bienvenido</h5>
+        </div>
+        <div class="card-body">
+          <% if(perfil){ %>
+          <p><strong>No.Empleado: </strong><%= perfil[0]%></p>
+          <p><strong>Nombre: </strong><%= perfil[1]%></p>
+          <p><strong>Puesto: </strong><%= perfil[2]%></p>
+          <p><strong>Seniority: </strong><%= perfil[3]%></p>
+          <p><strong>Rango: </strong><%= perfil[4]%></p>
+          <p><strong>Flota: </strong><%= perfil[5]%></p>
+          <p><strong>Email: </strong><%= perfil[6]%></p>
+        </div>
+        <div class="card-footer">
+          <div class="row text-center">
+            <h6>Administración de días</h6>
+          </div>
+          <div class="row">
+            <p>Totales: &nbsp;</p>
+            <div id="circuloTotal">
+              <p><%= perfil[7]%></p>
+            </div>
+            
+            &nbsp;
+            
+            <p>Usados: &nbsp; </p>           
+            <div id="circuloUs">
+              <p><%= perfil[8]%></p>
+            </div>
+            &nbsp;
+            <p>Disponibles: &nbsp; </p>
+            <div id="circuloDis">
+              <p><%= perfil[9]%></p>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+      <!--Ultima linea de borrado-->
+    </aside>
+    <main class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
+      <!--Borrar a partir de aqui-->
+      <div class="container">
+        <div class="card">
+          <h5 class="card-header">Solicitud</h5>
+          <div class="card-body">
+            <div id="calendar"></div>
+          </div>
+          
+        </div>
+      </div>
+      <!--Ultima linea de borrado-->
+    </main>
+  </section>
+</div>
+<%- include('../partials/_footer') %>

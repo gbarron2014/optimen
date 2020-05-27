@@ -1,0 +1,96 @@
+/*Color por defecto de la navbar*/
+.navbar-design {
+    background-color: #455a64;
+}
+
+/*Color de fondo por defect*/
+.bg-so{
+    background-color: #fafafa;
+}
+
+ul {list-style-type: none;}
+
+/* Header del mes */
+.month {
+  padding: 70px 25px;
+  width: 100%;
+  background: #1c313a;
+  text-align: center;
+}
+
+/* Lista del mes */
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Boton anterior dentro del header */
+.month .prev {
+  color: white !important;
+  float: left;
+  padding-top: 10px;
+}
+
+/* Boton siguiente */
+.month .next {
+  color: white !important;
+  float: right;
+  padding-top: 10px;
+}
+
+/* Dias de la semana */
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color:#ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+/* dias(1-31) */
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+/* Dias recurrentes */
+.days li .active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+
+.days li .danger {
+  padding: 5px;
+  background: #c62828;
+  color: white !important
+}
+
+.days li .warning {
+  padding: 5px;
+  background: #ffee58;
+  color: black !important
+}

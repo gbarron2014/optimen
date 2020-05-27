@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.min.css' rel='stylesheet'
+  media='print' />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/es.js'></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style type="text/css">
+  .fc-sun {
+    color: red;
+    background-color: #fff0f0;
+  }
+
+  .fc-sat {
+    color: blue;
+    background-color: #f0f0ff;
+  }
+
+  #circuloTotal {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 25%;
+    background: blue;
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  #circuloTotal>p {
+    font-family: sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  #circuloUs {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 25%;
+    background: red;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #circuloUs>p {
+    font-family: sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  #circuloDis {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 25%;
+    background: greenyellow;
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  #circuloDis>p {
+    font-family: sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#calendar').fullCalendar({
+      timeZone: 'local',
+      events: '/tripulante/getGantt',
+      selectable: true,
+      editable: true,
+      select: function (start, end, jsEvent, view) {
+        //var allDay = !start.hasTime() && end.hasTime();
+        //var start = moment(start).format('D MMM YYYY');
+        var fechaInicio = moment(start).format();
+        var fechaTermino = moment(end).format();
+        datos = { estado: "proceso", fechaInicio, fechaTermino };
+        // Se agregaron estas dos variables 
+        var fecha1 = new Date(fechaInicio);
+        var fecha2 = new Date(fechaTermino);
+        // Se optiene el mes de ambas varibles, muestra un mensaje de error si son diferentes                                                          
+        if (fecha1.getMonth() != fecha2.getMonth()) {
+          swal({
+            title: "¡Error!",
+            text: "El mes del periodo selecionado debe ser el mismo",
+            icon: "warning",
+            buttons: {
+              cancel: "Entendio"
+            }
+          })
+        } else {
+          fecha1.getTime();
+          fecha2.getTime();
+          var diff = fecha2 - fecha1;
+          var usados = (diff / (1000 * 60 * 60 * 24));
+          if (usados <= 2) {
+            swal({
+              title: "¡Advertencia!",
+              text: "El periodo seleccionado debería tener un mínimo de tres días",
+              icon: "warning",
+              buttons: {
+                cancel: "Entendio"
+              }
+            })
+          } else if (usados > 5) {
+            swal({
+              title: "¡Advertencia!",
+              text: "El periodo seleccionado debería tener un "+"\n"+"máximo de cinco días",
+              icon: "warning",
+              buttons: {
+                cancel: "Entendio"
+              }
+            })
+          } else {
+            if (datos) {
+              swal({
+                title: "¡Confirmación!",
+                text: "El periodo seleccionado es: \n Inicia " + fechaInicio + " y Termina " + fechaTermino + ".",
+                icon: "success",
+                buttons: {
+                  cancel: "Cancelar",
+                  catch: { text: "Ok", value: "Ok" }
+                }
+              })
+                .then((value) => {
+                  switch (value) {
+                    case "Ok":
+                      $.ajax({
+                        url: "/tripulante/saveGantt",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: datos,
+                        success: function (res) {
+
+                        }
+                      });
+                      location.reload(true);
+                      break;
+                    case "Cancelar":
+                      location.reload(true);
+                      break;
+                  }
+                });
+            }//Fin if datos
+          }
+          //Rango valido
+        }
+        //Fin if comparacion de fechas        
+      },
+      //Fin select
+      eventClick: function (event, jsEvent, view) {
+        swal({
+          title: "¡Eliminar!",
+          text: "¿Deseas eliminar el periodo seleccionado?",
+          icon: "warning",
+          buttons: {
+            cancel: "Cancelar",
+            catch: { text: "Ok", value: event.id }
+          }
+        })
+          .then((value) => {
+            if (value != 0) {
+              parametro = { value };
+              console.log(parametro);
+              $.ajax({
+                url: '/tripulante/deleteGantt',
+                type: "POST",
+                dataType: "JSON",
+                data: parametro,
+                success: function (res) {
+                  console.log(res)
+                },
+              });
+              location.reload(true);
+            } else if (value == false) {
+              location.reload(true);
+            }
+
+          })
+      }
+      //Fin eventClick
+    });
+    //Fin callendar
+  });
+  //Fin document
+</script>

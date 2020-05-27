@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<% if(success!=""){ %>
+    <div class="container mt-2">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Mensaje:</strong> <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    </div>
+<% } %>
+
+<% if(error!=""){ %>
+    <div class="container mt-2">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Mensaje:</strong> <%= error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <div class="row float-right">
+        <a href="/planner/administracion/flota" class="btn btn-success">Flota</a>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead> 
+                    <tr>
+                        <th>N</th>
+                        <th>Nombre Rango</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (data) { %>
+                        <% for (var i = 0; i < data.length; i++) { %>
+
+                        <tr>
+                            <td><%= data[i].idRan %></td>
+                            <td><%= data[i].rango %></td>
+                            <td>
+                                <a href="/planner/administracion/rango/delete/<%= data[i].idRan %>" class="btn btn-danger">Eliminar</a>
+                                <a href="/planner/administracion/rango/update/<%= data[i].idRan %>" class="btn btn-info">Editar</a>
+                            </td>
+
+                        </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <center>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <form action="/planner/administracion/rango/add" method="POST">       
+                        <div class="form-group">
+                            <input type="number" name="idRan" placeholder="Id de Rango" class="form-control" minlength="1" maxlength="20" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off title="Solo se aceptan numeros.El minimo de caractes es 1 maximo 20"    required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="rango" placeholder="Nombre Rango" class="form-control"  minlength="6" maxlength="20" pattern="[A-Za-z0-9- -]+" title="Solo se aceptan numeros o letras.El minimo de caractes son 6 maximo 20" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+            </div>
+           
+        </diV>
+    </div>
+</div>
+</center>
+
+<%- include('partials/footer') %>

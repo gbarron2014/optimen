@@ -1,0 +1,148 @@
+<%- include ('partials/_headerRegistro') %>
+<div class="container mt-2 ">
+    <section class="row">
+        <aside class="col-12 col-sm-12 col-md-2 col-lg-4 col-xl-4 justify-content-center">
+            <!--Borrar a partir de aqui-->
+            <div class="card mb-2 " style="height: 100%;">
+                <div class="card-body">
+                        <div class="justify-content-center" style="margin: top;">
+                            <img src="img/logo.png" class="img-fluid mx-auto d-block" width="200 pt" height="auto" alt="">
+                            <a class="btn btn-info btn-block" href="/">Iniciar sesión</a>
+                            <a class="btn btn-info btn-block" href="/registro">Registrar</a>
+                        </div> 
+                </div>
+            </div>
+            <!--Ultima linea de borrado-->
+        </aside>
+        <main class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
+            <!--Borrar a partir de aqui-->
+            <div class="card mb-2">
+                        <div class="card-body ">
+                            <div class="row ">
+                                <div class="col-12">
+                                    <form action="/add" method="POST">
+                                        <% if (message != '') { %>
+                                            <div class="alert alert-danger" role="alert"><%= message %></div>
+                                        <% } %>
+
+                                        <% if (messageRegExitoso != '') { %>
+                                            <div class="alert alert-success" role="alert"><%= messageRegExitoso %></div>
+                                        <% } %>
+                                        
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#usuario" role="tab" aria-controls="nav-home" aria-selected="true">Usuario</a>
+                                              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#cuenta" role="tab" aria-controls="nav-profile" aria-selected="false">Cuenta</a>
+                                              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#laboral" role="tab" aria-controls="nav-contact" aria-selected="false">Laboral</a>
+                                            </div>
+                                          </nav>
+                                       <div class="tab-content">
+                                        <div id="usuario" class="container tab-pane active" req>
+                                                <div class="card-header">
+                                                    <h3 class="text-center">Datos del usuario</h3>
+                                                </div>   
+                                                <div class="form-group">  
+                                                    <label for="numTrabajador">Número de trabajador: </label>
+                                                    <input type="text" placeholder="Ingresa tu número de trabajador" name="numTrabajador" id="numTrabajador" class="form-control">
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Nombre">Nombre(s): </label>
+                                                    <input type="text" placeholder="Nombre(s)" name="Nombre" id="Nombre" class="form-control" maxlength="25">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ApePaterno">Apellido Paterno: </label>
+                                                    <input type="text" placeholder="Apellido Paterno" name="ApePaterno" class="form-control" maxlength="20">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ApeMaterno">Apellido Materno: </label>
+                                                    <input type="text" placeholder="Apellido Materno" name="ApeMaterno" class="form-control" maxlength="20">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="telefono">Teléfono: </label>
+                                                    <input type="number" placeholder="Ingresa tu número de teléfono" name="telefono" class="form-control" maxlength="10" minlength="10">
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-info" style="width:33%">Paso 1</div>
+                                                    <div class="progress-bar bg-secondary" style="width:33%">Paso 2</div>
+                                                    <div class="progress-bar bg-secondary" style="width:34%">Paso 3</div>
+                                                  </div>
+                                            </div>
+
+                                            <div id="cuenta" class="container tab-pane">
+                                                <div class="card-header">
+                                                    <h3 class="text-center">Datos de la cuenta</h3>
+                                                </div>
+                                            <div class="form-group">
+                                                    <label for="">Correo electrónico: </label>
+                                                    <input type="email" placeholder="Ingresa tu correo electrónico" name="Email" class="form-control" maxlength="35">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Repetir correo electrónico: </label>
+                                                <input type="email" placeholder="Repite tu correo electrónico" name="repEmail"  class="form-control" maxlength="35">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Contraseña: </label>
+                                                <input type="password" placeholder="Ingresa tu contraseña" name="Contrasenia" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Repite tu contraseña: </label>
+                                                <input type="password" placeholder="Repite tu contraseña" name="repContrasena" class="form-control">
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-info" style="width:33%">Paso 1</div>
+                                                <div class="progress-bar bg-info" style="width:33%">Paso 2</div>
+                                                <div class="progress-bar bg-secondary" style="width:34%">Paso 3</div>
+                                            </div>
+                                            </div>
+                                            
+                                            <div id="laboral" class="container tab-pane">
+                                                <div class="card-header">
+                                                    <h3 class="text-center">Datos laborales</h3>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Puesto de Trabajo:</label>
+                                                    <select class="form-control" name="idPues">
+                                                        <option value="0">Seleccionar...</option>
+                                                        <%for(i=0; i<regPuesto.length; i++){%>
+                                                            <option value="<%= regPuesto[i].idPues%>"><%= regPuesto[i].puesto %></option>
+                                                        <%}%>
+                                                      </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Rango:</label>
+                                                    <select class="form-control" name="idRan">
+                                                        <option value="0">Seleccionar...</option>
+                                                        <%for(i=0; i<regRango.length; i++){%>
+                                                            <option value="<%= regRango[i].idRan%>"><%= regRango[i].rango %></option>
+                                                        <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Flota:</label>
+                                                    <select class="form-control" name="idFlota">
+                                                        <option value="0">Seleccionar...</option>
+                                                        <%for(i=0; i<regFlota.length; i++){%>
+                                                            <option value="<%= regFlota[i].idFlota%>"><%= regFlota[i].flota %></option>
+                                                        <%}%>
+                                                      </select>
+                                                </div>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-info" style="width:33%">Paso 1</div>
+                                                        <div class="progress-bar bg-info" style="width:33%">Paso 2</div>
+                                                        <div class="progress-bar bg-info" style="width:34%">Paso 3</div>
+                                                    </div><br>
+                                                    </div>
+                                            </div><br><br>
+                                            <div class="form-footer panel-footer">
+                                                <button type="submit" class="btn btn-success">Registrar</button>
+                                            </div>
+                                       </div>
+                                    </form>
+                                </div>
+                            </div>
+            <!--Ultima linea de borrado-->
+        </main>
+    </section>
+</div>
+<%- include ('partials/_footer') %>

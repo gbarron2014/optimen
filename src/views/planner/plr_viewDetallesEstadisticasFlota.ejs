@@ -1,0 +1,103 @@
+<%- include ('partials/header') %>
+<!--//Con esto incluimos el header de la aplicación-->
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center"> Detalles </h4>
+                    <a title="Regresar A Resumen Flota" class="btn btn-info btn-lg"
+                        href="/planner/estadisticas/flota">Regresar</a>
+                </div>
+                <div class="card-body">
+                    <table id="estadisticasLists" class="table table-bordered table-hover">
+                        <thead>
+                            <th>ID de Solicitud</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de término</th>
+                            <th>Estado</th>
+                            <th>Número de Trabajador</th>
+                        </thead>
+                        <tbody>
+                            <% if(datosDetallesFlot){ %>
+                            <% for(var j=0;j< datosDetallesFlot.length;j++){ %>
+                            <tr>
+                                <td> <%= datosDetallesFlot[j].ID %> </td>
+                                <td> <%= datosDetallesFlot[j].Inicio %> </td>
+                                <td> <%= datosDetallesFlot[j].Termino%> </td>
+                                <td> <%= datosDetallesFlot[j].Estado %> </td>
+                                <td> <%= datosDetallesFlot[j].IDTrab %> </td>
+                            </tr>
+                            <% } %>
+                            <% } %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID de Solicitud</th>
+                                <th>Fecha de inicio</th>
+                                <th>Fecha de término</th>
+                                <th>Estado</th>
+                                <th>Número de Trabajador</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#estadisticasLists').DataTable({
+            select: true,
+            "language": idioma_esp
+        });
+
+    });
+
+    var idioma_esp = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla.",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+    }
+</script>
+
+<%- include ('partials/footer') %>
+<!--//Con esto incluimos el footer de la aplicación -->

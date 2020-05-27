@@ -1,0 +1,157 @@
+<%- include('partials/header') %> 
+<!--//Con esto incluimos el header-->
+<div class="container mt-4">
+<div class="row">
+<div class="col-12 col-md-9">
+<div class="card">
+<div class="card-header">
+<h4 class="text-center">
+Configuración de Temporada
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-12 col-md-9">
+<table class="table table-bordered table-hover">
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/es.js'></script>
+    <style type="text/css">
+        .fc-sun {
+            color: red;
+            background-color: #fff0f0;
+        }
+        
+        .fc-sat {
+            color: blue;
+            background-color: #f0f0ff;
+        }
+    </style>
+    <title>Calendario bonito</title>
+</head>
+<body>
+    <div class="container" style="padding: 1.25rem;">
+        <div class="card">
+            <h5 class="card-header">Calendario</h5>
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#calendar').fullCalendar({
+      timeZone:'local',
+      events: '/planner/configuracion/adds',
+      selectable: true,
+      editable: true,
+      select: function (start, end, jsEvent, view) {
+        //var allDay = !fechaInicio.hasTime() && !fechaTermino.hasTime();
+        //var fechaInicio = moment(start).format('D MMM YYYY');
+        var fechaInicio = moment(start).format();
+        var fechaTermino = moment(end).format();
+        var fechaTerminoo = moment(end).subtract(1,'d').format('YYYY-MM-DD');
+        datos1 = { temporada:"Baja", fechaInicio, fechaTermino};
+        //se agregaron dos veriables
+        var fecha1 = new Date(fechaInicio);
+        var fecha2 = new Date(fechaTermino-1);
+        // Se optiene el dia de ambas varibles, muestra un mensaje de error si son iguales                                     
+        if (fecha1.getDate() === fecha2.getDate())
+        {
+          swal({
+            title: "¡Error!",
+            text: "No se puede registrar temporada",
+            icon: "warning",
+            buttons: {
+              cancel: "Entendio"
+            }
+          })
+        }
+        else
+        {
+          fecha1.getDate();
+          fecha2.getDate();
+          if (datos1) {
+          swal({
+            title: "¡Confirmación!",
+            text: "El periodo seleccionado es: \n Inicia " + fechaInicio + " y Termina " + fechaTerminoo + ".",
+            icon: "success",
+            buttons: {
+              cancel: "Cancelar",
+              catch: { text: "Ok", value: "Ok" }
+            }
+          })
+            .then((value) => {
+              switch (value) {
+                case "Ok":
+                  $.ajax({
+                    url: '/planner/configuracion/add',
+                    type: "POST",
+                    dataType: "JSON",
+                    data: datos1,
+                    success: function (res) {
+
+                    }
+                  });
+                  location.reload(true);
+                  break;
+                case "Cancelar":
+                  location.reload(true);
+                  break;
+              }
+            });
+          } 
+        }
+      },
+  });
+});  
+</script>
+
+</html>
+    <thead>
+        <th>#</th>
+        <th>Fecha inicial</th>
+        <th>Fecha final</th>
+    </thead> 
+<tbody>
+<% if(datos){ %>
+<% for(var i=0;i< datos.length;i++){ %>
+<tr>
+<td> <%= (i+1)%> </td>
+<td> <%= datos[i].fechaInicio %> </td>
+<td> <%= datos[i].fechaTermino %> </td>
+
+<td>
+<a href="/planner/configuracion/update/<%= datos[i].idTemp %>" onclick='alert("Solo se puede modificar el estado de Temporda (No Modificar Fechas)")' value="Click Aquí para ver el ALERTA" class="btn btn-info">Modificar</a>
+</td>
+</tr>
+<% } %>
+<% } %>
+</tbody>
+</table>
+
+<div class="text-center">
+    <a href='/planner' class="btn btn-danger">Cancelar</a>
+</div> 
+
+</div>
+</div>
+</div>
+<%- include('../partials/_footer') %> 

@@ -1,0 +1,31 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function cerrarSesion() {        
+        swal({
+            title: "¡Cerrar sesión!",
+            text: "¿Realmente deseas salir?",
+            icon: "info",            
+            buttons: {
+              cancel: "Cancelar",
+              catch: { text: "Ok", value: "Ok" }
+            }
+        })
+            .then((value) => {
+                switch (value) {
+                    case "Ok":
+                        $.ajax({
+                            url: "/tripulante/logout",
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function (res) {                                
+                            }                                                        
+                        });
+                        location.reload(true);
+                        break;
+                    case "Cancelar":
+                        location.reload(true);
+                        break;
+                }
+            });
+    }
+</script>

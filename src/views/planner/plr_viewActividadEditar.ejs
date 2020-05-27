@@ -1,0 +1,24 @@
+
+<%- include ('partials/header') %>
+<div class="container mt-4">
+<div class="row justify-content-md-center">
+<div class="col-12 col-md-6">
+<div class="card">
+<div class="card-header">
+<h3 class="text-center">Actualizar</h3>
+</div>
+<div class="card-body">
+<form action="/planner/actividad/update/<%= datos.idAct %>" method="post">
+<div class="form-group">
+<input type="text" name="nombreAct" value="<%= datos.nombreAct %>" placeholder="Nombre de la Actividad" class="form-control" required>
+<br>
+<input type="text" name="descipcion" value="<%= datos.descipcion%>" placeholder="Descripciรณn de la Actividad" class="form-control" required>
+<br>
+<button type="submit" class="btn btn-success">Actualizar</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<%- include ('partials/footer') %>

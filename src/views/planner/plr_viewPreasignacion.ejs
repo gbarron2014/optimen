@@ -1,0 +1,82 @@
+<%- include ('partials/header') %>
+
+<div class="container mt-4">
+<div class="row">
+<div class="col-12 col-md-4">
+<div class="card">
+<div class="card-header">
+<h4 class="text-center">
+Añadir Preasignación
+</div>
+<div class="card-body">
+<form action="/planner/preasignacion/add" method="POST">
+	<div class="form-group">
+		<label for="">Actividades:</label>
+		<select class="form-control" name="acti" required>
+			<option value="">Seleccionar...</option>
+			<%for(i=0; i<regActividad.length; i++){%>
+				<option value="<%= regActividad[i].nombreAct%>"><%= regActividad[i].nombreAct %></option>
+			<%}%>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="">Número de Trabajador:</label>
+		<select class="form-control" name="numTra" required>
+			<option value="">Seleccionar...</option>
+			<%for(i=0; i<regNumero.length; i++){%>
+				<option value="<%= regNumero[i].numTrabajador %>"><%= regNumero[i].numTrabajador %></option>
+			<%}%>
+		  </select>
+	</div>
+  <div id="selected_value">
+	<div class="form-group">
+	<input type="datetime-local" name="fechaInicio" placeholder="Fecha Inicio" class="form-control" min="2020-05-14T08:00" max="2040-01-1T00:00" required>
+	</div> 
+	<div class="form-group">
+	<input type="datetime-local" name="fechaTermino" placeholder="Fecha Termino" class="form-control" min="2020-05-14T08:30" max="2040-01-1T00:00" required>
+</div>
+</div>
+
+<button type="submit" class="btn btn-success">Añadir</button>
+<a href="actividad" class="btn btn-success">Actividades</a>
+
+</form>
+</div>
+</div>
+
+</div>
+
+<div class="col-12 col-md-8">
+<table class="table table-bordered table-hover">
+<thead>
+<th>#</th>
+<th>N° de Trabajador</th>
+<th>Actividad</th>
+<th>Fecha Inicio</th>
+<th>Fecha Termino</th>
+</thead>
+<tbody>
+<% if(datos){ %>
+<% for(var i=0;i< datos.length;i++){ %>
+<tr>
+<td> <%= (i+1)%> </td>
+<td> <%= datos[i].numTra %> </td>
+<td> <%= datos[i].acti %> </td>
+<td><%= datos[i].fechaInicio %></td>
+<td><%= datos[i].fechaTermino %></td>
+<td>
+<a href="/planner/preasignacion/update/<%= datos[i].idPre %>" class="btn btn-info">Editar</a>
+</td>
+<td>
+  <a href="/planner/preasignacion/delete/<%= datos[i].idPre %>" class="btn btn-danger">Eliminar</a>
+  </td>
+</tr>
+<% } %>
+<% } %>
+</tbody>
+</table>
+	
+</div>
+</div>
+</div>
+<%- include ('../partials/_footer') %>

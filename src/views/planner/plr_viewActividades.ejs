@@ -1,0 +1,58 @@
+<%- include ('partials/header') %>
+<div class="container mt-4">
+<div class="row">
+<div class="col-12 col-md-4">
+<div class="card">
+<div class="card-header">
+<h4 class="text-center">
+Añadir Actividad
+</div>
+<div class="card-body">
+<form action="/planner/actividad/add" method="POST">
+<div class="form-group">
+<input type="text" name="nombreAct" placeholder="Nombre de la Actividad "
+class="form-control" required>
+</div>
+<div class="form-group">
+<input type="text" name="descipcion" placeholder="Descripción de la Actividad "
+class="form-control" required>
+</div>
+
+
+
+<button type="submit" class="btn btn-success">Guardar Actividad</button>
+<a href="preasignacion" class="btn btn-success">Preasignación</a>
+
+
+</form>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-8">
+<table class="table table-bordered table-hover">
+<thead>
+<th>#</th>
+<th>Nombre de la Actividad</th>
+<th>Descripción de la actividad</th>
+</thead>
+
+<tbody>
+<% if(datos){ %>
+<% for(var i=0;i< datos.length;i++){ %>
+<tr>
+<td> <%= (i+1)%> </td>
+<td> <%= datos[i].nombreAct %> </td>
+<td> <%= datos[i].descipcion %> </td>
+<td>
+<a href="/planner/actividad/update/<%= datos[i].idAct %>" class="btn btn-info">Editar</a>
+<a href="/planner/actividad/delete/<%= datos[i].idAct %>" class="btn btn-danger">Eliminar</a>
+</td>
+</tr>
+<% } %>
+<% } %>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<%- include ('partials/footer') %>

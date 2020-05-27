@@ -1,0 +1,121 @@
+<%- include('partials/header') %>
+        <style>
+            .tableFixHead { overflow-y: auto; height: 450px; }
+            .tableFixHead thead th { position: sticky; top: 0; }
+            .tableFixHead tbody { position: relative; }
+            table  { border-collapse: collapse; width: 100%; }
+            th, td { padding: 8px 16px; }
+        </style>
+        
+        <link href='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
+        <link href='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js'></script>
+        <script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js'></script>
+        <script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+        <script src="https://unpkg.com/fullcalendar@3.10.1/dist/locale-all.js"></script>
+
+                        
+        <style>
+            body {
+              padding: 0;
+              font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;  
+              font-size: 14px;
+            }
+            #calendar {
+              max-width: 900px;
+              margin: 0 auto;
+            }
+            .hoverEffect {
+              font-size: 29px;
+              position: absolute;
+              margin: 30px 55px;
+              cursor: pointer;
+          }
+          .ui-datepicker-trigger
+          {
+            background: transparent;
+              border: none;
+              margin: 0!important;
+              padding: 0!important;
+          }
+          .datetimepicker .input-group-addon {
+              background-color: #f9f9f9;
+              border-radius: 0;
+              border-top-right-radius: 3px;
+              border-bottom-right-radius: 3px;
+              cursor: pointer;
+              height: 2.1em;
+              border: 1px solid #ccc;
+              
+          }
+          .fc-state-default.fc-corner-right
+          {
+            border-radius: 0px;
+          }
+          </style>
+        
+        <script src="/js/plr_verificacionSolicitudes.js"></script>
+
+        <div class="container mt-2">
+            <section class="row">
+                <aside class="col-12 col-sm-12 col-md-5 col-lg-5">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h3 class="text-center">
+                                Tripulantes
+                            </h3>
+                            
+                            <hr>
+                            <table id="tablaTripulantes" class="display text-center">
+                                <thead>
+                                    <tr>
+                                        <th># </th>
+                                        <th>Nombre</th>
+                                        <th>R & F</th>
+                                        <th>Seniority</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(data){ %>
+                                        <% for(var i = 0;i < data.length;i++){ %>
+                                            <tr>
+                                                <th scope="row"> <%= data[i].Id %> </th>
+                                                <td> <%= data[i].Nombre %> </td>
+                                                <td> 
+                                                    <strong><%= data[i].Rango %></strong> <br> <%= data[i].Flota %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].seniority %>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-sm btn-success" value="Seleccionar" onclick='gettear("<%= data[i].Id %>")'>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </aside>
+                <main class="col-12 col-sm-12 col-md-7 col-lg-7">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="alert alert-info text-center" role="alert" id="alerta">
+                                <strong>Aún no has seleccionado ningun tripulante <i class="far fa-frown"></i></strong>
+                            </div>   
+                            <div id="calendar">                
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </section>            
+        </div>
+<%- include('partials/footer') %>

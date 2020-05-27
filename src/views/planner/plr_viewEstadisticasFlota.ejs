@@ -1,0 +1,189 @@
+<%- include ('partials/header') %>
+<!--//Con esto incluimos el header de la aplicación-->
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center"> Resumen Flota</h4>
+                    <div class="dropdown">
+                        <button title="Le permite filtrar entre Flota y Rango" type="button"
+                            class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            Fitrar por
+                        </button>
+                        <div class="dropdown-menu">
+                            <a title="Filtra por Flota" class="dropdown-item"
+                                href="/planner/estadisticas/flota">Flota</a>
+                            <a title="Filtra por Rango" class="dropdown-item"
+                                href="/planner/estadisticas/rango">Rango</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="estadisticasLists" class="table table-bordered table-hover table-responsive">
+                        <thead>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Enero</th>
+                            <th>Febrero</th>
+                            <th>Marzo</th>
+                            <th>Abril</th>
+                            <th>Mayo</th>
+                            <th>Junio</th>
+                            <th>Julio</th>
+                            <th>Agosto</th>
+                            <th>Septiembre</th>
+                            <th>Octubre</th>
+                            <th>Noviembre</th>
+                            <th>Diciembre</th>
+                        </thead>
+                        <tbody>
+                            <% if(datosFlota){ %>
+                            <% for(var j=0;j< datosFlota.length;j++){ %>
+                            <tr>
+                                <td> <%= datosFlota[j].ID %> </td>
+                                <td> <%= datosFlota[j].Nombre %> </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Enero"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/ene/<%= datosFlota[j].ID %>"><%= datosFlota[j].Ene %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Febrero"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/feb/<%= datosFlota[j].ID %>"><%= datosFlota[j].Feb %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Marzo"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/mar/<%= datosFlota[j].ID %>"><%= datosFlota[j].Mar %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Abril"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/abr/<%= datosFlota[j].ID %>"><%= datosFlota[j].Abr %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Mayo"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/may/<%= datosFlota[j].ID %>"><%= datosFlota[j].May %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Junio"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/jun/<%= datosFlota[j].ID %>"><%= datosFlota[j].Jun %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Julio"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/jul/<%= datosFlota[j].ID %>"><%= datosFlota[j].Jul %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Agosto"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/ago/<%= datosFlota[j].ID %>"><%= datosFlota[j].Ago %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Septiembre"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/sep/<%= datosFlota[j].ID %>"><%= datosFlota[j].Sep %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Octubre"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/oct/<%= datosFlota[j].ID %>"><%= datosFlota[j].Oct %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Noviembre"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/nov/<%= datosFlota[j].ID %>"><%= datosFlota[j].Nov %></a>
+                                </td>
+                                <td>
+                                    <a title="Ver Detalles Para la Flota <%= datosFlota[j].Nombre %>, en Diciembre"
+                                        class="btn btn-info btn-lg"
+                                        href="/planner/estadisticas/flota/dic/<%= datosFlota[j].ID %>"><%= datosFlota[j].Dic %></a>
+                                </td>
+                            </tr>
+                            <% } %>
+                            <% } %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Enero</th>
+                                <th>Febrero</th>
+                                <th>Marzo</th>
+                                <th>Abril</th>
+                                <th>Mayo</th>
+                                <th>Junio</th>
+                                <th>Julio</th>
+                                <th>Agosto</th>
+                                <th>Septiembre</th>
+                                <th>Octubre</th>
+                                <th>Noviembre</th>
+                                <th>Diciembre</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#estadisticasLists').DataTable({
+            select: true,
+            "language": idioma_esp
+        });
+
+    });
+
+    var idioma_esp = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla.",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+    }
+</script>
+
+<%- include ('partials/footer') %>
+<!--//Con esto incluimos el footer de la aplicación -->

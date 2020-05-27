@@ -1,0 +1,118 @@
+<%- include ('partials/header') %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<!--
+* Desarrollador: Cesar Alberto Garci­a Aranda
+*  Esta parte es todo el codigo de la tabla  
+-->
+
+
+<style type="text/css">
+    body {
+      text-align: center; }
+    </style>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center"> Control de Usuarios </h4>
+                </div>
+                <div class="card-body">
+                    <table id="estadisticasLists" class="table table-bordered table-hover" table-responsive>
+                        <thead>
+                                                       <th>Nombre</th>
+                            <th>Número de Trabajador</th>
+                            <th>Más información</th>
+                            <th>Correo Electrónico</th>
+                            <th>Status</th>
+                            <th>Decisiones</th>
+                            <!--<th>Acciones</th>-->
+                        </thead>
+                        <tbody>
+                            <% if(datos){ %>
+                            <% for(var i=0;i< datos.length;i++){ %>
+                            <tr>
+                                <td align="center"> <%= datos[i].Nombre %> <%= datos[i].apePaterno %> <%= datos[i].apeMaterno %>  </td>
+                                
+                                
+
+                                <td> <%= datos[i].numTrabajador %> </td>
+                                <td><span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Rango, Puesto y Flota">
+                                    <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled><%= datos[i].Rango %>, <%= datos[i].Puesto %>, <%= datos[i].Flota %></button>
+                                  </span></td>
+                                  
+                                  <td id="celda"><text id="status"> <%= datos[i].email %> </text></td>
+                                  <td id="celda"><text id="status"> <%= datos[i].estado %> </text></td>
+
+                                
+                                  <td> 
+                                  <a href="/admin/aceptar/<%= datos[i].numTrabajador %>" class="btn btn-primary" onclick="return confirm('¿Estas seguro de Aceptarlo? Recuerda mandarle correo al tripulante sobre tu decisión');">Aceptar</a>
+                                  <a href="/admin/rechazar/<%= datos[i].numTrabajador %>" class="btn btn-danger" onclick="return confirm('¿Estas seguro de Rechazarlo? Recuerda mandarle correo al tripulante sobre tu decisión');">Rechazar</a>
+                            
+                              </td>
+                                
+                            </tr>
+                            <% } %>
+                            <% } %>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+* Desarrollador: Cesar Alberto GarcÃ­a Aranda
+* Esta parte se muestran todos los scripts de jquery de interet, así como el script que cambia de lenguaje a la tabla 
+-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#estadisticasLists').DataTable({
+            select: true,
+            "language" : idioma_esp
+        });
+        
+    } );
+    
+    var idioma_esp = {
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ solicitudes",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "No existe ninguna solicitud",
+        "sInfo":           "Mostrando solicitud(es) de _START_ al _END_ de un total de _TOTAL_ solicitud(es)",
+        "sInfoEmpty":      "Mostrando solicitud(es) de 0 al 0 de un total de 0 solicitud(es)",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ solicitud(es))",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":     "Último",
+            "sNext":     "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+}
+    </script>
+
+
+<%- include ('partials/footer') %>

@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="cold-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/planner/administracion/rango/edit/<%= data.idRan %>" method="POST">
+                        <div class="form-group">
+                            <input type="number" name="idRan" value="<%= data.idRan %>" class="form-control" minlength="1" maxlength="20" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off title="Solo se aceptan numeros.El minimo de caractes es 1 maximo 20"  required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="rango" value="<%= data.rango %>" class="form-control" minlength="6" maxlength="20" pattern="[A-Za-z0-9- -]+" title="Solo se aceptan numeros o letras.El minimo de caractes son 6 maximo 20"  required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Editar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

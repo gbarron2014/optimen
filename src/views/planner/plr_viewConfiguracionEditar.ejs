@@ -1,0 +1,34 @@
+<%- include('partials/header') %> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container mt-4">
+<div class="row justify-content-md-center">
+<div class="col-12 col-md-6">
+<div class="card">
+<div class="card-header">
+<h3 class="text-center">Actualizar</h3>
+</div>
+<div class="card-body">
+<form action="/planner/configuracion/update/<%= datos.idTemp %>" method="post">
+<div class="form-group">
+
+<input type="text" disabled name="fechaInicio" value="<%= datos.fechaInicio %>"
+placeholder="Fecha Inicio" class="form-control">
+
+<input type="text" disabled name="fechaTermino" value="<%= datos.fechaTermino %>"
+placeholder="Fecha fin" class="form-control">
+
+<select class="form-control" name="temporada" placeholder="Temporada">
+    <option value="Baja">Baja</option>
+    <option value="Media">Media</option>
+    <option value="Alta">Alta</option>
+</select>
+
+<button type="submit" onclick='alert("Solo se modificara el estado de la Temporda.")' value="Click Aquí para ver el ALERTA" class="btn btn-success">Actualizar</button>
+<a href='/planner/configuracion' class="btn btn-danger">Cancelar</a>
+</form>
+</div>
+</div>
+</div>
+</div> 
+</div>
+<%- include('../partials/_footer') %>
